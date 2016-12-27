@@ -1,13 +1,8 @@
-// Create a page called UserPage. Use the "Header", "Users" and "Footer" components created above to
-// create a complete page for the user details including header, footer and the content.
-
+//Create a component called "Users". Use the below mentioned list to display user details for all the users.
 
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
 
-
-var UsersData =[
+var Users =[
   {
     "_id": "58613042d144513fd8c03bbc",
     "isActive": true,
@@ -66,34 +61,12 @@ var UsersData =[
   }
 ]
 export default class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <BasicPage/>
-      </div>
-    );
-  }
-}
-
-class BasicPage extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header/>
-        <Users/>
-        <Footer/>
-      </div>
-    );
-  }
-}
-
-class Users extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
-      data:UsersData
+      data:Users
     }
   }
 
@@ -102,25 +75,19 @@ class Users extends React.Component {
       <div>
         <table>
           <tbody>
-          {this.state.data.map((person, i) => <UserRow key = {i} data = {person} />)}
+          {this.state.data.map((person, i) => {
+            return <tr index={i}>
+              <td>{person._id}</td>
+              <td>{person.isActive.toString()}</td>
+              <td>{person.age}</td>
+              <td>{person.name}</td>
+              <td>{person.gender}</td>
+              <td>{person.email}</td>
+            </tr>
+          })}
           </tbody>
         </table>
       </div>
-    );
-  }
-}
-
-class UserRow extends React.Component {
-  render() {
-    return (
-      <tr>
-        <td>{this.props.data._id}</td>
-        <td>{this.props.data.isActive.toString()}</td>
-        <td>{this.props.data.age}</td>
-        <td>{this.props.data.name}</td>
-        <td>{this.props.data.gender}</td>
-        <td>{this.props.data.email}</td>
-      </tr>
     );
   }
 }

@@ -1,13 +1,9 @@
-// Create a page called UserPage. Use the "Header", "Users" and "Footer" components created above to
-// create a complete page for the user details including header, footer and the content.
-
+// Abstract away the map logic from the above created component "Users" into a new component called "UserDetail".
+// Use this new component for every user in the above list and refactor the "Users" component to use "UserDetail" inside it.
 
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
 
-
-var UsersData =[
+var Users =[
   {
     "_id": "58613042d144513fd8c03bbc",
     "isActive": true,
@@ -66,28 +62,6 @@ var UsersData =[
   }
 ]
 export default class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <BasicPage/>
-      </div>
-    );
-  }
-}
-
-class BasicPage extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header/>
-        <Users/>
-        <Footer/>
-      </div>
-    );
-  }
-}
-
-class Users extends React.Component {
 
   constructor() {
     super();
