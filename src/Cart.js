@@ -8,42 +8,57 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      item:[ {name: 'item1', qty:2, price: 30}, {name: 'item2', qty:5, price: 10}, {name: 'item3', qty:7, price: 120}],
-      CartTotal:0
+      items: [
+        {name: 'item1', qty: 2, price: 30},
+        {name: 'item2', qty: 5, price: 10},
+        {name: 'item3', qty: 7, price: 120}
+      ]
     };
   }
 
   render() {
-
     return (
       <div>
+        <Item items={this.state.items}/>
+        <CartTotal items={this.state.items}/>
+      </div>
+    );
+  }
+}
 
-        <table>
-          <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
+class Item extends React.Component {
+  render() {
+    return (
+      <table>
+        <tbody>
+        {
+          this.props.items.map((item, index) => {
+          return <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.qty}</td>
+            <td>{item.price}</td>
           </tr>
+        })
+        }
+        </tbody>
+      </table>
+    );
+  }
+}
 
-          {this.state.item.map((item, i) => {
-            this.state.CartTotal += (item.qty*item.price);
+Item.propTypes = {
+  items: React.PropTypes.shape({
+    map:React.PropTypes.func
+  })
+};
 
-            return <tr key={i}>
-              <td>{item.name}</td>
-              <td>{item.qty}</td>
-              <td>{item.price}</td>
-            </tr>
-          })}
+class CartTotal extends React.Component {
 
-
-          </tbody>
-        </table>
-
-        <div>
-          CartTotal = {this.state.CartTotal}
-        </div>
-
+  render() {
+    let cartTotal = this.props.items.reduce((total, row) => (total + (row.qty * row.price) ), 0);
+    return (
+      <div>
+        your total cart value is {cartTotal}
       </div>
     );
   }
