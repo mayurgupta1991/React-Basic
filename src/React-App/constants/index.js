@@ -1,3 +1,4 @@
-export const FETCH_DATA_STARTED = 'FETCH_DATA_STARTED';
 export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
-export const FETCH_DATA_FAILED = 'FETCH_DATA_FAILED';
+export const UPDATE_DATA  =  "UPDATE_DATA";
+export const DELETE_DATA  =  "DELETE_DATA";
+export const ADD_DATA     =  "ADD_DATA";

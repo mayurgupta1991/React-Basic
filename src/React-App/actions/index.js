@@ -1,17 +1,12 @@
 import {
-  FETCH_DATA_FAILED,
-  FETCH_DATA_SUCCESS,
-  FETCH_DATA_STARTED
+    ADD_DATA,
+    DELETE_DATA,
+    UPDATE_DATA,
+  FETCH_DATA_SUCCESS
 } from '../constants';
 
 import fetch from 'isomorphic-fetch';
 
-
-export function fetchDataStarted() {
-  return {
-    type: FETCH_DATA_STARTED
-  }
-}
 
 export function fetchDataSuccess(personAdd) {
   return {
@@ -20,15 +15,8 @@ export function fetchDataSuccess(personAdd) {
   }
 }
 
-export function fetchDataFailed() {
-  return {
-    type: FETCH_DATA_FAILED
-  }
-}
-
 export function fetchPersonDetails() {
   return (dispatch) => {
-    dispatch(fetchDataStarted());
     fetch('http://rest.learncode.academy/api/learncode/mayur')
       .then((response) => {
         return response.json();        
@@ -54,4 +42,26 @@ export function delData(param) {
         }
     )
   }
+}
+
+export function updatePerson(param) {
+
+  return (dispatch) => {
+    fetch("http://rest.learncode.academy/api/learncode/mayur/"+param.id,{
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(param)
+    }).then((response) => {
+      console.log(response)
+    if(response.status === 200)
+      dispatch(fetchPersonDetails())
+  }
+).catch((e) => {
+    console.log("Error while calling API....",e)
+}
+)
+}
 }
