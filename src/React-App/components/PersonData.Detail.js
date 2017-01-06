@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 
-import {updatePerson} from '../actions';
+import {updatePerson,createPerson} from '../actions';
 
 class PersonData extends Component {
 
@@ -37,9 +37,13 @@ class PersonData extends Component {
       job_title: this.state.job_title
 
     }
-    this.props.dispatch(updatePerson(newData))
-    browserHistory.push("/home")
 
+      if(this.props.location.query.fromUpdate === "true")
+          this.props.dispatch(updatePerson(newData))
+      else
+          this.props.dispatch(createPerson(newData))
+
+    browserHistory.push("/home")
   }
 
   goHome(){
@@ -47,19 +51,23 @@ class PersonData extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props);
-    const idx = this.props.params.id
-    this.props.personData.persons.map((row, index) =>{
-        if(row.id === idx){
-          this.setState({
-            id: idx,
-            name: row.name,
-            lname: row.lname,
-            email: row.email,
-            job_title: row.job_title
-          })
-        }
-    })
+
+
+      if(this.props.location.query.fromUpdate){
+          const idx = this.props.params.id;
+          this.props.personData.persons.map((row, index) =>{
+              if(row.id === idx){
+                  this.setState({
+                      id: idx,
+                      name: row.name,
+                      lname: row.lname,
+                      email: row.email,
+                      job_title: row.job_title
+                  })
+              }
+          });
+      }
+
   }
 
   render(){

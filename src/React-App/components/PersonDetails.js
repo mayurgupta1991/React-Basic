@@ -20,7 +20,6 @@ class PersonDetails extends React.Component {
         this.props.delDataNow(item);
     }
     render() {
-        console.log(this.props);
         return(
             <div>
             <Person persons={this.props.personData.persons}  delData ={this.deletePerson}/>
@@ -31,27 +30,35 @@ class PersonDetails extends React.Component {
 
 class Person extends React.Component{
     render() {
+
         return (
-            <div className="table">
-            <table className="table">
-            <tbody>
-            {
-                this.props.persons.map((item, index) => {
-                    return <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.lname}</td>
-                        <td>{item.email}</td>
-                        <td>{item.job_title}</td>
-                        <td><Link to={"/person/"+item.id}>Edit Person</Link></td>
-                        <td>
-                            <button onClick={(e) => this.props.delData(item.id)}>Delete</button>
-                        </td>
-                        </tr>
-                        })
-                        }
-                        </tbody>
-                        </table>
-                        </div>
+            <div>
+                <div>
+                    <Link to="person/1" query={{fromUpdate: false}}>Create User Data</Link>
+                    <br/><br/>
+                </div>
+                <div className="table">
+                <table className="table table-striped table-bordered">
+                <tbody>
+                {
+                     this.props.persons.map((item, index) => {
+                        let link_person = "/person/"+item.id
+                        return <tr key={index}>
+                            <td>{item.name}</td>
+                            <td>{item.lname}</td>
+                            <td>{item.email}</td>
+                            <td>{item.job_title}</td>
+                            <td><Link to={link_person} query={{fromUpdate: true}}>Edit Person</Link></td>
+                            <td className="text-center">
+                                <button onClick={(e) => this.props.delData(item.id)}>Delete</button>
+                            </td>
+                            </tr>
+                            })
+                            }
+                            </tbody>
+                            </table>
+                </div>
+            </div>
                         )
         }
 }

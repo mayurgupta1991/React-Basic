@@ -55,7 +55,6 @@ export function updatePerson(param) {
       },
       body: JSON.stringify(param)
     }).then((response) => {
-      console.log(response)
     if(response.status === 200)
       dispatch(fetchPersonDetails())
   }
@@ -64,4 +63,24 @@ export function updatePerson(param) {
 }
 )
 }
+}
+
+export function createPerson(param) {
+    return (dispatch) => {
+        fetch("http://rest.learncode.academy/api/learncode/mayur", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(param)
+        }).then((response) => {
+                if(response.status === 200)
+                    dispatch(fetchData())
+            }
+        ).catch((e) => {
+                console.log("Error while calling API....",e)
+            }
+        )
+    }
 }
