@@ -9,5 +9,6 @@ export default (
     <IndexRoute component={PersonComponent}/>
     <Route path={"home"} component={PersonComponent}/>
     <Route path={"person/:id"} component={PersonDataComponent}/>
+    <Route path={"person/CreatePerson"} component={PersonDataComponent}/>
   </Route>
 )

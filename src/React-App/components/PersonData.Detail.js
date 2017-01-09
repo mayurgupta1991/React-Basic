@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 
-import {updatePerson,createPerson} from '../actions';
+import {
+    updatePerson,
+    createPerson
+} from '../actions';
 
 class PersonData extends Component {
 
@@ -38,12 +41,12 @@ class PersonData extends Component {
 
     }
 
-      if(this.props.location.query.fromUpdate === "true")
-          this.props.dispatch(updatePerson(newData))
-      else
-          this.props.dispatch(createPerson(newData))
-
-    browserHistory.push("/home")
+    if(this.props.location.pathname =="/person/CreatePerson"){
+      this.props.dispatch(createPerson(newData))
+    }else{
+      this.props.dispatch(updatePerson(newData))
+    }
+     browserHistory.push("/home")
   }
 
   goHome(){
@@ -52,8 +55,7 @@ class PersonData extends Component {
 
   componentDidMount(){
 
-
-      if(this.props.location.query.fromUpdate){
+    if(this.props.location.pathname !=="/person/CreatePerson"){
           const idx = this.props.params.id;
           this.props.personData.persons.map((row, index) =>{
               if(row.id === idx){
@@ -67,7 +69,6 @@ class PersonData extends Component {
               }
           });
       }
-
   }
 
   render(){
@@ -97,7 +98,8 @@ class PersonData extends Component {
               </tr>
               <tr><td><br/></td></tr>
               <tr>
-                <td><button onClick={this.submitData}>Click to Submit Changes</button></td> <td><button onClick={this.goHome}>Click for Home</button></td>
+                <td><button onClick={this.submitData}>Click to Submit Changes</button></td>
+                <td><button onClick={this.goHome}>Click for Home</button></td>
               </tr>
             </tbody>
           </table>

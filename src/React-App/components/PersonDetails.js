@@ -1,16 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import {
     fetchPersonDetails,
     delData
 } from '../actions';
 
+import PersonList from "./PersonList"
+
 class PersonDetails extends React.Component {
     constructor(props) {
         super(props);
         this.deletePerson = this.deletePerson.bind(this);
-
     }
     componentDidMount(){
         this.props.importData();
@@ -22,45 +22,10 @@ class PersonDetails extends React.Component {
     render() {
         return(
             <div>
-            <Person persons={this.props.personData.persons}  delData ={this.deletePerson}/>
+            <PersonList persons={this.props.personData.persons}  delData ={this.deletePerson}/>
             </div>
         )
     }
-}
-
-class Person extends React.Component{
-    render() {
-
-        return (
-            <div>
-                <div>
-                    <Link to="person/1" query={{fromUpdate: false}}>Create User Data</Link>
-                    <br/><br/>
-                </div>
-                <div className="table">
-                <table className="table table-striped table-bordered">
-                <tbody>
-                {
-                     this.props.persons.map((item, index) => {
-                        let link_person = "/person/"+item.id
-                        return <tr key={index}>
-                            <td>{item.name}</td>
-                            <td>{item.lname}</td>
-                            <td>{item.email}</td>
-                            <td>{item.job_title}</td>
-                            <td><Link to={link_person} query={{fromUpdate: true}}>Edit Person</Link></td>
-                            <td className="text-center">
-                                <button onClick={(e) => this.props.delData(item.id)}>Delete</button>
-                            </td>
-                            </tr>
-                            })
-                            }
-                            </tbody>
-                            </table>
-                </div>
-            </div>
-                        )
-        }
 }
 
 let PersonComponent = connect((state) => {
