@@ -1,19 +1,15 @@
-/**
- * Created by ttnd on 27/12/16.
- */
-import React from 'react'
+import React, { Component } from 'react';
+import LifeCycleMethods from './components/LifeCycle';
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor() {
-    super()
+    super();
   }
 
   render() {
     return (
-      <div>
-        Working
-      </div>
-    )
+      <LifeCycleMethods />
+    );
   }
 
 }
